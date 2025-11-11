@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 
 
@@ -9,6 +9,8 @@ const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
+    const name = form.name.value;
+    const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
     registerWithEmail(email, password)
@@ -31,13 +33,14 @@ const Register = () => {
           email: result.user.email,
           image: result.user.photoURL,
         };
-        fetch("http://localhost:3000/users", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(newUser),
-        })
-          .then((res) => res.json())
-          .then((data) => console.log(data));
+        // fetch("http://localhost:3000/users", {
+        //   method: "POST",
+        //   headers: { "content-type": "application/json" },
+        //   body: JSON.stringify(newUser),
+        // })
+        //   .then((res) => res.json())
+        //   .then((data) => console.log(data));
+        return <Navigate to="/"></Navigate>;
       })
       .catch((error) => {});
   };
@@ -53,6 +56,20 @@ const Register = () => {
         </p>
       </div>
       <form onSubmit={handleRegister}>
+        <label className="label">Your Name</label>
+        <input
+          type="text"
+          name="name"
+          className="input w-full"
+          placeholder="Name"
+        />
+        <label className="label">Photo</label>
+        <input
+          type="url"
+          name="photo"
+          className="input w-full"
+          placeholder="Photo url"
+        />
         <label className="label">Your Email</label>
         <input
           type="email"

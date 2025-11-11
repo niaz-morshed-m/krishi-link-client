@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const NavBar = () => {
+    const {user} =useContext(AuthContext)
     const links = (
       <>
         <li>
@@ -9,8 +11,22 @@ const NavBar = () => {
         </li>
 
         <li>
-          <NavLink to='/allCrops'>All Crops</NavLink>
+          <NavLink to="/allCrops">All Crops</NavLink>
         </li>
+        {user && (
+            <>
+            <li>
+            <NavLink to="/myPosts">My Posts</NavLink>
+          </li>
+            <li>
+            <NavLink to="/myInterests">My Interests</NavLink>
+          </li>
+            <li>
+            <NavLink to="/addCrops">Add Crops</NavLink>
+          </li>
+          </>
+          
+        )}
       </>
     );
     return (
