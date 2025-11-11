@@ -9,6 +9,7 @@ import Home from './Pages/Home.jsx';
 import AllCrops from './Pages/AllCrops.jsx';
 import Login from './Pages/Login.jsx';
 import Register from './Pages/Register.jsx';
+import AuthProvider from './Provider/AuthProvider.jsx';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />,
+    <AuthProvider>
+      {" "}
+      <RouterProvider router={router} />,
+    </AuthProvider>
   </StrictMode>
 );
