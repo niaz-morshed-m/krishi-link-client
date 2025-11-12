@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
+import { useNavigate } from 'react-router';
 const LocationPinIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -42,6 +43,7 @@ const LinkIcon = () => (
 
 const PostForm = () => {
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate()
     const handlePostCrop = (e)=>{
 e.preventDefault()
 const form = e.target
@@ -79,7 +81,7 @@ fetch("http://localhost:3000/crop", {
   body: JSON.stringify(newCrop),
 })
   .then((res) => res.json())
-  .then((data) => console.log(data));
+  .then(() => navigate("/myPosts"));
 
 }
     return (
