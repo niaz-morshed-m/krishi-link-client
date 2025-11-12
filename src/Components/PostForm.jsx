@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../Provider/AuthProvider';
 const LocationPinIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -22,6 +23,7 @@ const LocationPinIcon = () => (
 );
 
 const LinkIcon = () => (
+
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -37,7 +39,9 @@ const LinkIcon = () => (
     />
   </svg>
 );
+
 const PostForm = () => {
+    const { user } = useContext(AuthContext);
     const handlePostCrop = (e)=>{
 e.preventDefault()
 const form = e.target
@@ -45,11 +49,37 @@ const cropName = form.name.value
 const type = form.type.value
 const quantity = form.quantity.value;
 const unit = form.unit.value
+const price = form.price.value
 const description = form.description.value
 const location = form.location.value
 const image = form.image.value 
 
-console.log(cropName, type, quantity, unit, description, location, image)
+// console.log(cropName, type, quantity, unit, description, location, image)
+const currentTime = new Date().toISOString().split(".")[0] + "Z";
+const newCrop = {
+  name: cropName,
+  type:type,
+  pricePerUnit: price,
+  unit: unit,
+  quantity: quantity,
+  description: description,
+  location: location,
+  image: image,
+  owner: {
+    ownerEmail: user.email,
+    ownerName: user.displayName,
+  },
+  addTime: currentTime,
+  interests: [],
+};
+
+fetch("http://localhost:3000/crop", {
+  method: "POST",
+  headers: { "content-type": "application/json" },
+  body: JSON.stringify(newCrop),
+})
+  .then((res) => res.json())
+  .then((data) => console.log(data));
 
 }
     return (
