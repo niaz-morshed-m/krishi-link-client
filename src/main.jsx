@@ -13,6 +13,7 @@ import AuthProvider from './Provider/AuthProvider.jsx';
 import MyPosts from './Pages/MyPosts.jsx';
 import MyInterests from './Pages/MyInterests.jsx';
 import AddCrops from './Pages/AddCrops.jsx';
+import CropDetails from './Pages/CropDetails.jsx';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "/addCrops",
         element:<AddCrops></AddCrops>
+      },
+      {
+        path: "/details/:id",
+        element:<CropDetails></CropDetails>
       }
     ]
   },

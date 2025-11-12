@@ -1,14 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const CropCard = ({crop}) => {
-    const {name, type, pricePerUnit, unit, description, location, image} = crop
+    const {name, type, pricePerUnit, unit, description, location, image, _id} = crop
     return (
       <div className="card bg-base-100  shadow-sm space-y-2">
         <figure className="max-h-[200px]">
           <img src={image} alt="Shoes" className="rounded-t-xl" />
         </figure>
         <div className="items-center space-y-5 p-6">
-          <div className='flex justify-between items-center'>
+          <div className="flex justify-between items-center">
             <div className="space-y-3">
               <h2 className="text-2xl font-semibold">{name}</h2>
               <div className="flex items-center gap-3">
@@ -24,7 +25,9 @@ const CropCard = ({crop}) => {
             </div>
           </div>
           <div className="">
-            <button className="btn w-full bg-[#07f255]">View Details</button>
+            <Link to={`/details/${_id}`}>
+              <button className="btn w-full bg-[#07f255]">View Details</button>
+            </Link>
           </div>
         </div>
       </div>
