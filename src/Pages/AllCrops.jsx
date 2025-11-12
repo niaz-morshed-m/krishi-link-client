@@ -3,7 +3,7 @@ import CropCard from '../Components/CropCard';
 
 
 
-const allCropPromise = fetch("http://localhost:3000/crops/all").then(
+const allCropPromise = fetch("http://localhost:3000/crop/all").then(
   (res) => res.json()
 );
 

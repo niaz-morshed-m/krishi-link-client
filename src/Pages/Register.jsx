@@ -4,7 +4,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 
 
 const Register = () => {
-  const { registerWithEmail, user, googleLogin, ProfileUpdate } =
+  const { registerWithEmail, user, googleLogin, profileUpdate } =
     useContext(AuthContext);
 
   const handleRegister = (e) => {
@@ -15,10 +15,19 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
     registerWithEmail(email, password)
-      .then((result) => {
+      .then(() => {
+          profileUpdate(name, photo)
+            .then(() => {
+              // Profile updated!
+              // ...
+            })
+            .catch(() => {
+              // An error occurred
+              // ...
+            });
         const newUser = {
           name: name,
-          email: result.user.email,
+          email: email,
           image: photo,
         };
          fetch("http://localhost:3000/users", {
@@ -34,7 +43,8 @@ const Register = () => {
         // ..
         console.log(errorMessage);
       });
-    
+  
+     
   };
   const handleGoogleLogin = () => {
     googleLogin()
@@ -44,8 +54,7 @@ const Register = () => {
           email: result.user.email,
           image: result.user.photoURL,
         };
-
-       
+        
         fetch("http://localhost:3000/users", {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -56,7 +65,7 @@ const Register = () => {
 
         return <Navigate to="/"></Navigate>;
       })
-      .catch((error) => {});
+      .catch(() => {});
   };
 
   return (

@@ -23,7 +23,7 @@ const googleLogin = ()=>{
  return signInWithPopup(auth, provider);
 }
 
-const ProfileUpdate = (name, url)=>{
+const profileUpdate = (name, url)=>{
    return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: url,
@@ -39,13 +39,13 @@ useEffect(() => {
     unSubscribe();
   };
 }, []);
-
+console.log(user)
   const authData = {
     registerWithEmail,
     user,
     logout,
     googleLogin,
-    ProfileUpdate,
+    profileUpdate,
   };
   return <AuthContext value={authData}>{children}</AuthContext>;
 };

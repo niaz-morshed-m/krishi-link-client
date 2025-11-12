@@ -2,7 +2,7 @@ import React, { use } from 'react';
 import CropCard from '../CropCard';
 import { Link } from 'react-router';
 
-const latestCropPromise = fetch("http://localhost:3000/crops/latest").then(
+const latestCropPromise = fetch("http://localhost:3000/crop/latest").then(
   (res) => res.json()
 );
 

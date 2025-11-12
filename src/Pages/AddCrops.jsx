@@ -1,9 +1,10 @@
 import React from 'react';
+import PostForm from '../Components/PostForm';
 
 const AddCrops = () => {
     return (
         <div>
-            add crops
+      <PostForm></PostForm>
         </div>
     );
 };
