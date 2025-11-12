@@ -24,7 +24,7 @@ const CropCard = ({crop}) => {
             </div>
           </div>
           <div className="">
-            <button className="btn w-full bg-[#07f255]">Buy Now</button>
+            <button className="btn w-full bg-[#07f255]">View Details</button>
           </div>
         </div>
       </div>
