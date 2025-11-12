@@ -1,27 +1,30 @@
 import React, { useContext } from 'react';
-import { Link, Navigate } from 'react-router';
+import { Link, Navigate, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 
 
 const Login = () => {
     const { googleLogin } = useContext(AuthContext);
+     const navigate = useNavigate();
+
 const handleGoogleLogin = ()=>{
 googleLogin()
   .then((result) => {
+    
    const newUser = {
     name: result.user.displayName,
     email: result.user.email,
    }
-//    fetch("http://localhost:3000/users", {
-//     method: "POST",
-//     headers: {"content-type":"application/json"},
-//     body: JSON.stringify(newUser)
-//    })
-//      .then((res) => res.json())
-//      .then((data) => console.log(data));
-return <Navigate to="/"></Navigate>
+   fetch("http://localhost:3000/users", {
+    method: "POST",
+    headers: {"content-type":"application/json"},
+    body: JSON.stringify(newUser)
+   })
+     .then((res) => res.json())
+     .then((data) => console.log(data));
+  navigate("/");
   })
-  .catch((error) => {
+  .catch(() => {
 
   });
 }

@@ -1,9 +1,10 @@
 import React from 'react';
+import LatestCrop from '../Components/LatestCrops/LatestCrop';
 
 const Home = () => {
     return (
         <div>
-            This is home
+           <LatestCrop></LatestCrop>
         </div>
     );
 };

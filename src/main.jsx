@@ -10,6 +10,9 @@ import AllCrops from './Pages/AllCrops.jsx';
 import Login from './Pages/Login.jsx';
 import Register from './Pages/Register.jsx';
 import AuthProvider from './Provider/AuthProvider.jsx';
+import MyPosts from './Pages/MyPosts.jsx';
+import MyInterests from './Pages/MyInterests.jsx';
+import AddCrops from './Pages/AddCrops.jsx';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +34,18 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register></Register>
+      },
+      {
+        path: "/myPosts",
+        element: <MyPosts></MyPosts>
+      },
+      {
+        path:"myInterests",
+        element:<MyInterests></MyInterests>
+      },
+      {
+        path: "/addCrops",
+        element:<AddCrops></AddCrops>
       }
     ]
   },

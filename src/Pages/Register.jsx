@@ -4,7 +4,8 @@ import { AuthContext } from "../Provider/AuthProvider";
 
 
 const Register = () => {
-  const { registerWithEmail, user, googleLogin } = useContext(AuthContext);
+  const { registerWithEmail, user, googleLogin, ProfileUpdate } =
+    useContext(AuthContext);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -14,16 +15,26 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
     registerWithEmail(email, password)
-      .then(() => {
-        // Signed up
-        // ...
+      .then((result) => {
+        const newUser = {
+          name: name,
+          email: result.user.email,
+          image: photo,
+        };
+         fetch("http://localhost:3000/users", {
+           method: "POST",
+           headers: { "content-type": "application/json" },
+           body: JSON.stringify(newUser),
+         })
+           .then((res) => res.json())
+           .then((data) => console.log(data));
       })
       .catch((error) => {
         const errorMessage = error.message;
         // ..
         console.log(errorMessage);
       });
-    console.log(user);
+    
   };
   const handleGoogleLogin = () => {
     googleLogin()
@@ -33,17 +44,21 @@ const Register = () => {
           email: result.user.email,
           image: result.user.photoURL,
         };
-        // fetch("http://localhost:3000/users", {
-        //   method: "POST",
-        //   headers: { "content-type": "application/json" },
-        //   body: JSON.stringify(newUser),
-        // })
-        //   .then((res) => res.json())
-        //   .then((data) => console.log(data));
+
+       
+        fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data));
+
         return <Navigate to="/"></Navigate>;
       })
       .catch((error) => {});
   };
+
   return (
     <div className="shadow-lg border border-[#d5d9e0] rounded-xl px-5 h-[50%] flex flex-col justify-center space-y-6 w-[80%] lg:w-[35%]  md:w-[35%] mx-auto py-4 mt-6">
       <div>
