@@ -23,6 +23,10 @@ const googleLogin = ()=>{
  return signInWithPopup(auth, provider);
 }
 
+ const updateUser = (Obj)=>{
+  return  updateProfile(auth.currentUser, Obj)
+  }
+
 const profileUpdate = (name, url)=>{
    return updateProfile(auth.currentUser, {
       displayName: name,
@@ -52,6 +56,7 @@ console.log(user)
     profileUpdate,
     signIn,
     loading,
+    updateUser,
   };
   return <AuthContext value={authData}>{children}</AuthContext>;
 };

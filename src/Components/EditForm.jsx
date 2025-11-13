@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 const LocationPinIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -52,8 +53,7 @@ const EditForm = ({post}) => {
     } = onePost;
 
      const handleEditCrop = (e) => {
-       e.preventDefault();
-       console.log("button clicked")
+      e.preventDefault()
        const form = e.target;
        const updatedCropName = form.name.value;
        const updatedType = form.type.value;
@@ -84,7 +84,17 @@ const EditForm = ({post}) => {
          body: JSON.stringify(updatedCrop),
        })
          .then((res) => res.json())
-         .then(() => setOnePost(updatedCrop));
+         .then(() =>  {
+            setOnePost(updatedCrop)
+         });
+         setTimeout(() => {
+           location.reload(); // Reload the page after 5 seconds
+         }, 5000);
+         Swal.fire({
+           title: "Drag me!",
+           icon: "success",
+           draggable: true,
+         });
      };
     return (
       <div className=" min-h-screen p-2 md:p-5">

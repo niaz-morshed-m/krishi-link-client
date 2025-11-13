@@ -72,14 +72,16 @@ const NavBar = () => {
         </div>
         <div className="navbar-end">
           {user && (
-            <div className="avatar relative group m-4">
-              <div className="w-7 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 cursor-pointer">
-                <img src={user && user.photoURL} alt="User profile avatar" />
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-[-2.5rem] bg-gray-800 text-white text-sm px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
-                  {user.displayName || "No Name"}
+            <Link to="/profile">
+              <div className="avatar relative group m-4">
+                <div className="w-7 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 cursor-pointer">
+                  <img src={user && user.photoURL} alt="User profile avatar" />
+                  <div className="absolute left-1/2 -translate-x-1/2 bottom-[-2.5rem] bg-gray-800 text-white text-sm px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                    {user.displayName || "No Name"}
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           )}
           {user ? (
             <button onClick={handleLogout} className="btn bg-[#27e46677]">
