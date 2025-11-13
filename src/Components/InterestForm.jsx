@@ -1,18 +1,39 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../Provider/AuthProvider';
 
-const InterestForm = () => {
+const InterestForm = ({data}) => {
+const {user} = useContext(AuthContext)
+  const handleSubmitInterest = (e)=>{
+e.preventDefault()
+const form = e.target
+const quantity = form.quantity.value
+const message = form.message.value;
+
+const newInterest = {
+  cropId: data._id,
+userEmail: user.email,
+userName: user.displayName,
+quantity:quantity,
+message: message,
+status: "pending"
+}
+
+fetch(`http://localhost:3000/crop/addInterest/${data._id}`, {
+  method: "PATCH",
+  headers: { "content-type": "application/json" },
+  body: JSON.stringify(newInterest),
+})
+  .then((res) => res.json())
+  .then((data) => console.log(data));
+  }
     return (
       <div className="w-full lg:w-2/5 space-y-6">
-        <button className="w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors">
-          View as Crop Owner (Toggle Ownership)
-        </button>
-
         <div className="bg-white p-6 rounded-lg shadow-lg space-y-4">
           <h3 className="text-xl font-bold text-gray-800">
             Express Your Interest
           </h3>
 
-          <form className="space-y-4">
+          <form onSubmit={handleSubmitInterest} className="space-y-4">
             {/* Quantity Input */}
             <div>
               <label
@@ -30,7 +51,6 @@ const InterestForm = () => {
                 step="0.1"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                 placeholder="0.0"
-                readOnly
               />
             </div>
 
@@ -48,7 +68,6 @@ const InterestForm = () => {
                 rows="4"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                 placeholder="Type your message here..."
-                readOnly
               ></textarea>
             </div>
 
@@ -61,7 +80,7 @@ const InterestForm = () => {
 
             {/* Submit Button */}
             <button
-              type="button"
+              type="submit"
               className="w-full bg-green-500 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
             >
               Submit Interest

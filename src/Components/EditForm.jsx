@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 const LocationPinIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -38,6 +38,7 @@ const LinkIcon = () => (
   </svg>
 );
 const EditForm = ({post}) => {
+    const [onePost, setOnePost] = useState(post);
     const {
         name,
       type,
@@ -48,10 +49,11 @@ const EditForm = ({post}) => {
       location,
       image,
       _id,
-    } = post;
-    console.log(_id)
+    } = onePost;
+
      const handleEditCrop = (e) => {
        e.preventDefault();
+       console.log("button clicked")
        const form = e.target;
        const updatedCropName = form.name.value;
        const updatedType = form.type.value;
@@ -65,6 +67,7 @@ const EditForm = ({post}) => {
        // console.log(cropName, type, quantity, unit, description, location, image)
     
        const updatedCrop = {
+        _id: _id,
          name:updatedCropName,
          type: updatedType,
          pricePerUnit: updatedPrice,
@@ -76,12 +79,12 @@ const EditForm = ({post}) => {
        };
 
        fetch(`http://localhost:3000/crop/${_id}`, {
-         method: "POST",
+         method: "PATCH",
          headers: { "content-type": "application/json" },
          body: JSON.stringify(updatedCrop),
        })
          .then((res) => res.json())
-         .then((data) => console.log(data));
+         .then(() => setOnePost(updatedCrop));
      };
     return (
       <div className=" min-h-screen p-2 md:p-5">
