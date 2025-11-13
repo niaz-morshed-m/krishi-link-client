@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 
 const InterestForm = ({data}) => {
@@ -7,17 +7,34 @@ const [error, setError] = useState(null)
 const [quantity, setQuantity] =useState(0)
 const [totalPrice, setTotalPrice] = useState(0)
 const [status, setStatus] = useState(false)
-const { interests } = data;
+
+  const { interests = [] } = data;
+
+ useEffect(() => {
+   const userInterest = interests.find(
+     (interest) => interest.userEmail === user?.email
+   );
+   if (userInterest) {
+     setError("You have already expressed interest in this crop.");
+     setStatus(true);
+   }
+ }, [interests, user?.email]);
+
 
 const handleTotalPrice = (e) => {
   const value = parseInt(e.target.value) || 0;
+
+
 
   if (value <= 0) {
     setError("Your quantity should be at least 1");
     setStatus(true);
     setQuantity(0);
     setTotalPrice(0);
-  } else if (value > parseInt(data.quantity)) {
+  } 
+  
+  
+  else if (value > parseInt(data.quantity)) {
     setError("This amount of Quantity Not Available");
     setStatus(true);
     setQuantity(0);

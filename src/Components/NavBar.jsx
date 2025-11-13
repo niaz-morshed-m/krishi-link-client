@@ -60,7 +60,7 @@ const NavBar = () => {
               {links}
             </ul>
           </div>
-          <Link className='/'>
+          <Link className="/">
             {" "}
             <figure className="btn btn-ghost text-xl">
               <img className="w-[180px]" src={logo} alt="" />
@@ -71,17 +71,27 @@ const NavBar = () => {
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
+          {user && (
+            <div className="avatar relative group m-4">
+              <div className="w-7 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 cursor-pointer">
+                <img src={user && user.photoURL} alt="User profile avatar" />
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-[-2.5rem] bg-gray-800 text-white text-sm px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                  {user.displayName || "No Name"}
+                </div>
+              </div>
+            </div>
+          )}
           {user ? (
-            <button onClick={handleLogout} className="btn">
+            <button onClick={handleLogout} className="btn bg-[#27e46677]">
               Logout
             </button>
           ) : (
             <div>
               <NavLink to="/register">
-                <button className="btn">Register</button>
+                <button className="btn bg-primary">Register</button>
               </NavLink>
               <NavLink to="/login">
-                <button className="btn">Login</button>
+                <button className="btn bg-primary">Login</button>
               </NavLink>
             </div>
           )}

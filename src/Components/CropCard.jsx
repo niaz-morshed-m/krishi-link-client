@@ -26,7 +26,7 @@ const CropCard = ({crop}) => {
           </div>
           <div className="">
             <Link to={`/details/${_id}`}>
-              <button className="btn w-full bg-[#07f255]">View Details</button>
+              <button className="btn w-full bg-primary">View Details</button>
             </Link>
           </div>
         </div>

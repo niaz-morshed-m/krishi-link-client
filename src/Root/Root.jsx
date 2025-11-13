@@ -1,15 +1,23 @@
 import React from 'react';
 import NavBar from '../Components/NavBar';
-import { Outlet } from 'react-router';
+import { Outlet, useNavigation } from 'react-router';
 import Footer from '../Components/Footer';
 
 const Root = () => {
+     const navigation = useNavigation();
+     const isLoading = navigation.state === "loading";
     return (
-        <div>
-            <NavBar></NavBar>
-            <Outlet></Outlet>
-            <Footer></Footer>
-        </div>
+      <div>
+        <NavBar></NavBar>
+        {isLoading ? (
+          <div className="flex justify-center p-5 m-3">
+            <span className="loading loading-bars loading-xl"></span>
+          </div>
+        ) : (
+          <Outlet />
+        )}
+        <Footer></Footer>
+      </div>
     );
 };
 

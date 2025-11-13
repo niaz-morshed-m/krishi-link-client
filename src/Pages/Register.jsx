@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Navigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 
 
 const Register = () => {
-  const { registerWithEmail, user, googleLogin, profileUpdate } =
+  const { registerWithEmail, googleLogin, profileUpdate } =
     useContext(AuthContext);
+
+     const [error, setError] = useState("")
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -14,6 +16,19 @@ const Register = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
+
+
+const validPassword = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password);
+
+if (!validPassword) {
+  setError(
+    "Password must contain at least one uppercase, one lowercase letter, and be at least 6 characters long."
+  );
+  return;
+}
+
+
+
     registerWithEmail(email, password)
       .then(() => {
           profileUpdate(name, photo)
@@ -41,7 +56,7 @@ const Register = () => {
       .catch((error) => {
         const errorMessage = error.message;
         // ..
-        console.log(errorMessage);
+       setError(errorMessage)
       });
   
      
@@ -107,7 +122,11 @@ const Register = () => {
           className="input w-full"
           placeholder="Password"
         />
-
+        {error && (
+          <span className="text-sm text-red-600">
+            <p>{error}</p>
+          </span>
+        )}
         <button type="submit" className="btn text-white bg-primary mt-4 w-full">
           Register
         </button>

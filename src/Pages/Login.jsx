@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 
 
 const Login = () => {
-    const { googleLogin } = useContext(AuthContext);
+    const { googleLogin, signIn } = useContext(AuthContext);
      const navigate = useNavigate();
+     const [error, setError] = useState("")
 
 const handleGoogleLogin = ()=>{
 googleLogin()
@@ -28,6 +29,30 @@ googleLogin()
 
   });
 }
+
+const handleLogIn = (e)=>{
+e.preventDefault()
+const form = e.target 
+const email = form.email.value 
+const password = form.password.value
+
+
+
+signIn(email, password)
+  .then(() => {
+    // Signed in
+return navigate('/')
+    // ...
+  })
+  .catch((error) => {
+  
+    const errorMessage = error.message;
+setError(errorMessage)
+
+  });
+
+}
+
     return (
       <div className="shadow-lg border border-[#d5d9e0] rounded-xl px-5 h-[50%] flex flex-col justify-center space-y-6 w-[80%] lg:w-[35%]  md:w-[35%] mx-auto py-4 mt-6">
         <div>
@@ -39,7 +64,7 @@ googleLogin()
             </Link>
           </p>
         </div>
-        <form>
+        <form onSubmit={handleLogIn}>
           <label className="label">Your Email</label>
           <input
             type="email"
@@ -53,7 +78,11 @@ googleLogin()
             className="input w-full"
             placeholder="Password"
           />
-
+          {error && (
+            <span className="text-sm text-red-600">
+              <p>{error}</p>
+            </span>
+          )}
           <Link to="/forgotPassword">
             <div>
               <span className="link link-hover text-sm">Forgot password?</span>

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import EditForm from '../Components/EditForm';
+import { useNavigate } from 'react-router';
 
 const MyPosts = () => {
     const {user} = useContext(AuthContext)
     const [data, setData] = useState([])
-
+const navigate = useNavigate()
      useEffect(() => {
         fetch("http://localhost:3000/crop/all")
           .then((res) => res.json()) // convert response to JSON

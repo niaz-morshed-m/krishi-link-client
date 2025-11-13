@@ -25,6 +25,7 @@ const AllCrops = () => {
 
   return (
     <div>
+      
       <p>All Crops</p>
       <div className="flex justify-center mb-5">
         <label className="input">
