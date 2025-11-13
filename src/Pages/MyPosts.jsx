@@ -19,7 +19,14 @@ const MyPosts = () => {
 const filteredData = data.filter(
   (post) => (user?.email === post.owner.ownerEmail)
 );
-
+const handleDelete = (id)=>{
+fetch(`http://localhost:3000/crop/delete/${id}`, {
+  method: "DELETE",
+  headers: { "content-type": "application/json" },
+})
+  .then((res) => res.json())
+  .then(() => navigate("/myPosts"));
+}
     return (
       <div className="overflow-x-auto">
         <table className="table">
@@ -56,16 +63,23 @@ const filteredData = data.filter(
                       <EditForm post={post}></EditForm>
                     </div>
                   </dialog>
-                  <button 
-                    onClick={() =>
-                      document
-                        .getElementById(`my_modal_${post._id}`)
-                        .showModal()
-                    }
-                    className="btn"
-                  >
-                    Edit
-                  </button>
+                  <div className="flex justify-center items-center gap-2">
+                    {" "}
+                    <button
+                      type="submit"
+                      onClick={() =>
+                        document
+                          .getElementById(`my_modal_${post._id}`)
+                          .showModal()
+                      }
+                      className="btn btn-sm"
+                    >
+                      Edit
+                    </button>
+                    <button onClick={()=>handleDelete(post._id)} className="btn btn-sm">
+                      Delete
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

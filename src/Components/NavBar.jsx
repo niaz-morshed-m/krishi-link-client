@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
-
+import logo from "../assets/Casxsxpture-removebg-preview.png"
 const NavBar = () => {
     const { user, logout } = useContext(AuthContext);
     const handleLogout = () => {
@@ -60,24 +60,31 @@ const NavBar = () => {
               {links}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <Link className='/'>
+            {" "}
+            <figure className="btn btn-ghost text-xl">
+              <img className="w-[180px]" src={logo} alt="" />
+            </figure>
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-           {user ? (
-                      <button onClick={handleLogout} className='btn'>Logout</button>
-                    ) : (
-                      <div>
-                        <NavLink to="/register">
-                          <button className="btn">Register</button>
-                        </NavLink>
-                        <NavLink to="/login">
-                          <button className="btn">Login</button>
-                        </NavLink>
-                      </div>
-                    )}
+          {user ? (
+            <button onClick={handleLogout} className="btn">
+              Logout
+            </button>
+          ) : (
+            <div>
+              <NavLink to="/register">
+                <button className="btn">Register</button>
+              </NavLink>
+              <NavLink to="/login">
+                <button className="btn">Login</button>
+              </NavLink>
+            </div>
+          )}
         </div>
       </div>
     );
