@@ -51,6 +51,7 @@ console.log(user)
     googleLogin,
     profileUpdate,
     signIn,
+    loading,
   };
   return <AuthContext value={authData}>{children}</AuthContext>;
 };

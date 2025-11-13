@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const InterestForm = ({data}) => {
 const {user} = useContext(AuthContext)
@@ -47,30 +48,46 @@ const handleTotalPrice = (e) => {
   }
 };
 
-  const handleSubmitInterest = (e)=>{
-e.preventDefault()
-console.log("button clicked")
-const form = e.target
-const quantity = form.quantity.value
-const message = form.message.value;
+const handleSubmitInterest = (e) => {
+  e.preventDefault();
+  console.log("button clicked");
+  const form = e.target;
+  const quantity = form.quantity.value;
+  const message = form.message.value;
 
-const newInterest = {
-  cropId: data._id,
-userEmail: user.email,
-userName: user.displayName,
-quantity:quantity,
-message: message,
-status: "pending"
-}
+  const newInterest = {
+    cropId: data._id,
+    userEmail: user.email,
+    userName: user.displayName,
+    quantity: quantity,
+    message: message,
+    status: "pending",
+  };
 
-fetch(`http://localhost:3000/crop/addInterest/${data._id}`, {
-  method: "PATCH",
-  headers: { "content-type": "application/json" },
-  body: JSON.stringify(newInterest),
-})
-  .then((res) => res.json())
-  .then((data) => console.log(data));
-  }
+  fetch(`http://localhost:3000/crop/addInterest/${data._id}`, {
+    method: "PATCH",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(newInterest),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      Swal.fire({
+        title: "Interest sent to the Owner",
+        icon: "success",
+        draggable: true,
+      }).then(() => {
+        // ✅ Clear inputs
+        form.reset();
+        setQuantity(0);
+        setTotalPrice(0);
+
+        // ✅ Disable further submission instantly
+        setError("You have already expressed interest in this crop.");
+        setStatus(true);
+      });
+    });
+};
 
   
 

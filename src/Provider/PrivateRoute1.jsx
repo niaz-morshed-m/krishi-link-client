@@ -16,11 +16,12 @@ if (loading) {
   );
 }
 
-
+console.log("Loading:", loading, "User:", user);
 if (user && user?.email) {
   return children;
 }
 return <Navigate to="/login"></Navigate>
+
 };
 
 export default PrivateRoute1;
