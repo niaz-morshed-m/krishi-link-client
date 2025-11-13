@@ -1,11 +1,33 @@
 import React, { useContext } from 'react';
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 import logo from "../assets/Casxsxpture-removebg-preview.png"
+import Swal from 'sweetalert2';
+import { BiLogOut } from 'react-icons/bi';
+import { TbLogout2 } from 'react-icons/tb';
+import { IoMdPersonAdd } from 'react-icons/io';
 const NavBar = () => {
     const { user, logout } = useContext(AuthContext);
+    const navigate = useNavigate();
     const handleLogout = () => {
-      logout();
+      
+      Swal.fire({
+        title: "Do you want to Logout?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Save",
+        denyButtonText: `Don't save`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire("Saved!", "", "success");
+           logout();
+           navigate('/')
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+        }
+      });
+     
     };
     const links = (
       <>
@@ -85,15 +107,15 @@ const NavBar = () => {
           )}
           {user ? (
             <button onClick={handleLogout} className="btn bg-[#27e46677]">
-              Logout
+            <TbLogout2 />  Logout
             </button>
           ) : (
-            <div>
+            <div className='flex gap-2.5'>
               <NavLink to="/register">
-                <button className="btn bg-primary">Register</button>
+                <button className="btn bg-primary"><IoMdPersonAdd /> Register</button>
               </NavLink>
               <NavLink to="/login">
-                <button className="btn bg-primary">Login</button>
+                <button className="btn bg-primary"><BiLogOut /> Login</button>
               </NavLink>
             </div>
           )}

@@ -31,6 +31,22 @@ const ProfilePage = () => {
         e.preventDefault();
         setError(errorMessage);
       });
+
+const newUser = {
+    name: name,
+   photoUrl: photo
+}
+
+fetch(`http://localhost:3000/user/${user.email}`, {
+  method: "PATCH",
+  headers: { "content-type": "application/json" },
+  body: JSON.stringify(newUser),
+})
+  .then((res) => res.json())
+  .then(() => {
+ 
+  });
+
   };
   return (
     <div className="w-full max-w-3xl mx-auto text-center">

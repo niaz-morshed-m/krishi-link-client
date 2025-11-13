@@ -19,6 +19,7 @@ import PrivateRoute2 from './Provider/PrivateRoute2.jsx';
 import PrivateRoute3 from './Provider/PrivateRoute3.jsx';
 import PrivateRoute4 from './Provider/PrivateRoute4.jsx';
 import Profile from './Pages/Profile.jsx';
+import PrivateRoute5 from './Provider/PrivateRoute5.jsx';
 
 const router = createBrowserRouter([
   {
@@ -114,9 +115,14 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path:"/profile",
-        element: <Profile></Profile>
-      }
+        path: "/profile",
+        element: (
+          <PrivateRoute5>
+            {" "}
+            <Profile></Profile>
+          </PrivateRoute5>
+        ),
+      },
     ],
   },
 ]);
