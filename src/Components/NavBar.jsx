@@ -59,7 +59,7 @@ const NavBar = () => {
       </>
     );
     return (
-      <div className="navbar fixed top-0 shadow-sm bg-white/20 backdrop-blur-md z-50">
+      <div className="navbar bg-base-100 shadow-sm">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -118,16 +118,16 @@ const NavBar = () => {
             </button>
           ) : (
             <div className="flex gap-2.5">
-              <NavLink to="/register">
+              <Link to="/register">
                 <button className="btn bg-primary btn-sm md:btn-md lg:btn-md">
                   <IoMdPersonAdd /> Register
                 </button>
-              </NavLink>
-              <NavLink to="/login">
-                <button className="btn bg-primary btn-sm md:btn-md lg:btn-md">
+              </Link>
+              <Link to="/login">
+                <button className="btn bg-primary btn-sm md:btn-md lg:btn-md ">
                   <BiLogOut /> Login
                 </button>
-              </NavLink>
+              </Link>
             </div>
           )}
         </div>

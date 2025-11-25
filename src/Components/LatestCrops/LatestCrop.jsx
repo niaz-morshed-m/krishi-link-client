@@ -12,7 +12,7 @@ const LatestCrop = () => {
     return (
       <div className='mt-25'>
         <p className='text-4xl font-bold text-center'>Latest Crops</p>
-        <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-5 p-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-5 py-10 px-1 lg:px-10 md:px-10">
           {latestCrops.map((crop) => (
             <CropCard key={crop._id} crop={crop}></CropCard>
           ))}

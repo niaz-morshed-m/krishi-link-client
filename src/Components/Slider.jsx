@@ -14,7 +14,7 @@ const Slider = () => {
          
            
   return (
-    <div className="w-full mt-28" data-aos-duration="5000"
+    <div className="w-full mt-5" data-aos-duration="5000"
           data-aos="fade-up">
       <Swiper
         modules={[Autoplay]}

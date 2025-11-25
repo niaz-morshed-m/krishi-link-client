@@ -17,7 +17,7 @@ const MyInterests = () => {
           }, [user]);
           
     return (
-        <div className='mt-30'>
+        <div className='m-8'>
           <MyInterestsTable interestsData={interestsData}></MyInterestsTable>
         </div>
     );

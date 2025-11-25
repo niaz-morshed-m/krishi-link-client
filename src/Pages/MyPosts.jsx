@@ -55,7 +55,7 @@ const handleDelete = (id) => {
 
 
     return filteredData && filteredData.length > 0 ? (
-      <div className="overflow-x-auto mt-22">
+      <div className="overflow-x-auto m-8">
         <table className="table">
           {/* head */}
           <thead className="text-center">
@@ -114,7 +114,7 @@ const handleDelete = (id) => {
         </table>
       </div>
     ) : (
-      <div className="flex justify-center items-center gap-2 text-center mx-auto m-35">
+      <div className="flex justify-center items-center gap-2 text-center mx-auto m-8">
         <MdErrorOutline /> <span>You haven't Posted any Crop Yet</span>
       </div>
     );

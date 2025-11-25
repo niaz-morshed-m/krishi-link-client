@@ -27,7 +27,7 @@ const AllCrops = () => {
   }, [searchQuery, allCrops]);
 
   return (
-    <div className="space-y-7 m-6 mt-28">
+    <div className="space-y-7 m-6 mt-8">
       <p className="text-4xl font-bold text-center">All Crops</p>
 
       <div className="flex justify-center mb-5">
