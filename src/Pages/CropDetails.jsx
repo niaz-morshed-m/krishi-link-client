@@ -21,7 +21,7 @@ const {owner} = data
 
   
     return (
-      <div className="bg-gray-50 min-h-screen p-4 md:p-8 font-inter mt-18">
+      <div className="bg-gray-50 min-h-screen p-4 md:p-8 font-inter">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-bold text-gray-900 mb-6">{data.name}</h1>
 

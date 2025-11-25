@@ -62,7 +62,7 @@ const AllCrops = () => {
           <span className="loading loading-bars loading-xl"></span>
         </div>
       ) : filteredCrops.length > 0 ? (
-        <div className="grid md:grid-cols-3 grid-cols-1 lg:grid-cols-3 gap-5 p-10">
+        <div className="grid md:grid-cols-3 grid-cols-1 lg:grid-cols-3 gap-5 py-10 px-1 lg:px-10 md:px-10">
           {filteredCrops.map((crop) => (
             <CropCard key={crop._id} crop={crop} />
           ))}
