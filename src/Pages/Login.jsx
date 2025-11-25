@@ -102,7 +102,7 @@ setError(errorMessage)
 
           <button
             type="submit"
-            className="btn text-white bg-primary mt-4 w-full"
+            className="btn  bg-primary mt-4 w-full"
           >
             Login
           </button>

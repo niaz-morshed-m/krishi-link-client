@@ -140,7 +140,7 @@ if (!validPassword) {
             <p>{error}</p>
           </span>
         )}
-        <button type="submit" className="btn text-white bg-primary mt-4 w-full">
+        <button type="submit" className="btn  bg-primary mt-4 w-full">
           Register
         </button>
       </form>
