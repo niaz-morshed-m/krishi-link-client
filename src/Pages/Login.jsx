@@ -1,6 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
+import Aos from 'aos';
 
 
 const Login = () => {
@@ -16,7 +17,7 @@ googleLogin()
     name: result.user.displayName,
     email: result.user.email,
    }
-   fetch("http://localhost:3000/users", {
+   fetch("https://krishi-link-server-ten.vercel.app/users", {
     method: "POST",
     headers: {"content-type":"application/json"},
     body: JSON.stringify(newUser)
@@ -52,9 +53,17 @@ setError(errorMessage)
   });
 
 }
-
+  useEffect(() => {
+             Aos.init();
+           }, []);
+         
+           
     return (
-      <div className="shadow-lg border border-[#d5d9e0] rounded-xl px-5 h-[50%] flex flex-col justify-center space-y-6 w-[80%] lg:w-[35%]  md:w-[35%] mx-auto py-4 mt-6">
+      <div
+        className="shadow-lg border border-[#d5d9e0] rounded-xl px-5 h-[50%] flex flex-col justify-center space-y-6 w-[80%] lg:w-[35%]  md:w-[35%] mx-auto py-4 mt-25"
+        data-aos-duration="7000"
+        data-aos="fade-left"
+      >
         <div>
           <p className="text-2xl text-center font-semibold">Login Now!</p>
           <p className="text-center">
@@ -71,12 +80,14 @@ setError(errorMessage)
             name="email"
             className="input w-full"
             placeholder="Email"
+            required
           />
           <label className="label">Password</label>
           <input
             name="password"
             className="input w-full"
             placeholder="Password"
+            required
           />
           {error && (
             <span className="text-sm text-red-600">

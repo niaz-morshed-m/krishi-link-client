@@ -1,6 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Navigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
+import Aos from "aos";
 
 
 const Register = () => {
@@ -9,6 +10,11 @@ const Register = () => {
 
      const [error, setError] = useState("")
 
+       useEffect(() => {
+             Aos.init();
+           }, []);
+         
+         
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -45,7 +51,7 @@ if (!validPassword) {
           email: email,
           image: photo,
         };
-         fetch("http://localhost:3000/users", {
+         fetch("https://krishi-link-server-ten.vercel.app/users", {
            method: "POST",
            headers: { "content-type": "application/json" },
            body: JSON.stringify(newUser),
@@ -70,7 +76,7 @@ if (!validPassword) {
           image: result.user.photoURL,
         };
         
-        fetch("http://localhost:3000/users", {
+        fetch("https://krishi-link-server-ten.vercel.app/users", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(newUser),
@@ -84,7 +90,11 @@ if (!validPassword) {
   };
 
   return (
-    <div className="shadow-lg border border-[#d5d9e0] rounded-xl px-5 h-[50%] flex flex-col justify-center space-y-6 w-[80%] lg:w-[35%]  md:w-[35%] mx-auto py-4 mt-6">
+    <div
+      className="shadow-lg border border-[#d5d9e0] rounded-xl px-5 h-[50%] flex flex-col justify-center space-y-6 w-[80%] lg:w-[35%]  md:w-[35%] mx-auto py-4 mt-25 mb-10"
+      data-aos-duration="7000"
+      data-aos="fade-left"
+    >
       <div>
         <p className="text-2xl text-center font-semibold">Register Now!</p>
         <p className="text-center">
@@ -101,6 +111,7 @@ if (!validPassword) {
           name="name"
           className="input w-full"
           placeholder="Name"
+          required
         />
         <label className="label">Photo</label>
         <input
@@ -108,6 +119,7 @@ if (!validPassword) {
           name="photo"
           className="input w-full"
           placeholder="Photo url"
+          required
         />
         <label className="label">Your Email</label>
         <input
@@ -121,6 +133,7 @@ if (!validPassword) {
           name="password"
           className="input w-full"
           placeholder="Password"
+          required
         />
         {error && (
           <span className="text-sm text-red-600">

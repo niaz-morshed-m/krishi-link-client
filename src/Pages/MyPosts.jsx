@@ -2,34 +2,60 @@ import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import EditForm from '../Components/EditForm';
-import { useNavigate } from 'react-router';
+import { MdErrorOutline } from 'react-icons/md';
+import Swal from "sweetalert2";
+
 
 const MyPosts = () => {
     const {user} = useContext(AuthContext)
     const [data, setData] = useState([])
-const navigate = useNavigate()
+
      useEffect(() => {
-        fetch("http://localhost:3000/crop/all")
-          .then((res) => res.json()) // convert response to JSON
+        fetch("https://krishi-link-server-ten.vercel.app/crop/all")
+          .then((res) => res.json())
           .then((info) => {
             setData(info)
-          }) // set the fetched data
-          .catch((err) => console.log("Error:", err)); // handle error
+          }) 
+          .catch((err) => console.log("Error:", err)); 
       }, [user]);
   
 const filteredData = data.filter(
   (post) => (user?.email === post.owner.ownerEmail)
 );
-const handleDelete = (id)=>{
-fetch(`http://localhost:3000/crop/delete/${id}`, {
-  method: "DELETE",
-  headers: { "content-type": "application/json" },
-})
-  .then((res) => res.json())
-  .then(() => navigate("/myPosts"));
-}
-    return (
-      <div className="overflow-x-auto">
+
+
+const handleDelete = (id) => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    customClass: {
+      confirmButton: "my-confirm-btn",
+      cancelButton: "my-deny-btn",
+    },
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch(`https://krishi-link-server-ten.vercel.app/crop/delete/${id}`, {
+        method: "DELETE",
+        headers: { "content-type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then(() => {
+          setData((prevData) => prevData.filter((item) => item._id !== id));
+          Swal.fire("Deleted!", "Your post has been deleted.", "success");
+        });
+    }
+  });
+};
+
+
+
+
+
+    return filteredData && filteredData.length > 0 ? (
+      <div className="overflow-x-auto mt-22">
         <table className="table">
           {/* head */}
           <thead className="text-center">
@@ -43,7 +69,7 @@ fetch(`http://localhost:3000/crop/delete/${id}`, {
           <tbody>
             {/* row 1 */}
             {filteredData.map((post, index) => (
-              <tr className="text-center">
+              <tr key={post._id} className="text-center">
                 <th>{index + 1}</th>
                 <td>{post.name}</td>
                 <td>{post.type}</td>
@@ -51,12 +77,9 @@ fetch(`http://localhost:3000/crop/delete/${id}`, {
                   TK {post.pricePerUnit} / {post.unit}
                 </td>
                 <td>
-                  {/* You can open the modal using document.getElementById('ID').showModal() method */}
-
                   <dialog id={`my_modal_${post._id}`} className="modal">
                     <div className="modal-box text-start">
                       <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                           ✕
                         </button>
@@ -77,7 +100,10 @@ fetch(`http://localhost:3000/crop/delete/${id}`, {
                     >
                       Edit
                     </button>
-                    <button onClick={()=>handleDelete(post._id)} className="btn btn-sm">
+                    <button
+                      onClick={() => handleDelete(post._id)}
+                      className="btn btn-sm"
+                    >
                       Delete
                     </button>
                   </div>
@@ -86,6 +112,10 @@ fetch(`http://localhost:3000/crop/delete/${id}`, {
             ))}
           </tbody>
         </table>
+      </div>
+    ) : (
+      <div className="flex justify-center items-center gap-2 text-center mx-auto m-35">
+        <MdErrorOutline /> <span>You haven't Posted any Crop Yet</span>
       </div>
     );
 };

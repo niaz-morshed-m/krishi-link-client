@@ -14,18 +14,22 @@ const NavBar = () => {
       Swal.fire({
         title: "Do you want to Logout?",
         showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: "Save",
-        denyButtonText: `Don't save`,
+         customClass: {
+    confirmButton: 'my-confirm-btn',
+    denyButton: 'my-deny-btn'
+  },
+        confirmButtonText: "Yes",
+  
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
+ 
         if (result.isConfirmed) {
-          Swal.fire("Saved!", "", "success");
+          Swal.fire("Logged Out Successfully");
+           customClass: {
+    confirmButton: "swal-ok-btn"
+  }
            logout();
            navigate('/')
-        } else if (result.isDenied) {
-          Swal.fire("Changes are not saved", "", "info");
-        }
+        } 
       });
      
     };
@@ -55,7 +59,7 @@ const NavBar = () => {
       </>
     );
     return (
-      <div className="navbar bg-base-100 shadow-sm">
+      <div className="navbar fixed top-0 shadow-sm bg-white/20 backdrop-blur-md z-50">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -106,16 +110,23 @@ const NavBar = () => {
             </Link>
           )}
           {user ? (
-            <button onClick={handleLogout} className="btn bg-[#27e46677]">
-            <TbLogout2 />  Logout
+            <button
+              onClick={handleLogout}
+              className="btn bg-primary btn-sm md:btn-md lg:btn-md"
+            >
+              <TbLogout2 /> Logout
             </button>
           ) : (
-            <div className='flex gap-2.5'>
+            <div className="flex gap-2.5">
               <NavLink to="/register">
-                <button className="btn bg-primary"><IoMdPersonAdd /> Register</button>
+                <button className="btn bg-primary btn-sm md:btn-md lg:btn-md">
+                  <IoMdPersonAdd /> Register
+                </button>
               </NavLink>
               <NavLink to="/login">
-                <button className="btn bg-primary"><BiLogOut /> Login</button>
+                <button className="btn bg-primary btn-sm md:btn-md lg:btn-md">
+                  <BiLogOut /> Login
+                </button>
               </NavLink>
             </div>
           )}

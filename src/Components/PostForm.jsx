@@ -1,6 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import { useNavigate } from 'react-router';
+import Aos from 'aos';
+import Swal from 'sweetalert2';
 const LocationPinIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +58,7 @@ const description = form.description.value
 const location = form.location.value
 const image = form.image.value 
 
-// console.log(cropName, type, quantity, unit, description, location, image)
+
 const currentTime = new Date().toISOString().split(".")[0] + "Z";
 const newCrop = {
   name: cropName,
@@ -75,25 +77,43 @@ const newCrop = {
   interests: [],
 };
 
-fetch("http://localhost:3000/crop", {
+fetch("https://krishi-link-server-ten.vercel.app/crop", {
   method: "POST",
   headers: { "content-type": "application/json" },
   body: JSON.stringify(newCrop),
 })
   .then((res) => res.json())
-  .then(() => navigate("/myPosts"));
+  .then(() => {
+    Swal.fire({
+            title: "Your Crop Posted",
+            customClass: {
+              confirmButton: "my-confirm-btn",
+            
+            },
+            icon: "success",
+            draggable: true,
+          })
+    navigate("/myPosts")
+  } );
 
 }
+  useEffect(() => {
+             Aos.init();
+           }, []);
+         
+         
     return (
-      <div className="bg-gray-50 min-h-screen p-4 md:p-8 font-inter">
+      <div
+        className="bg-gray-50 min-h-screen p-4 md:p-8 font-inter"
+        data-aos-duration="5000"
+        data-aos="fade-left"
+      >
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold text-gray-900 mb-6">
             Add New Crop Listing
           </h1>
 
-          {/* Form is broken into sections for styling */}
           <form onSubmit={handlePostCrop} className="space-y-6">
-            {/* --- Crop Details Section --- */}
             <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg space-y-6">
               <div>
                 <h2 className="text-2xl font-bold text-gray-800">
@@ -104,7 +124,6 @@ fetch("http://localhost:3000/crop", {
                 </p>
               </div>
 
-              {/* Crop Name */}
               <div>
                 <label
                   htmlFor="cropName"
@@ -117,11 +136,11 @@ fetch("http://localhost:3000/crop", {
                   id="cropName"
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                   placeholder="e.g., Organic Tomatoes"
-                  name='name'
+                  name="name"
+                  required
                 />
               </div>
 
-              {/* Crop Type */}
               <div>
                 <label
                   htmlFor="cropType"
@@ -130,14 +149,14 @@ fetch("http://localhost:3000/crop", {
                   Crop Type
                 </label>
                 <input
-                name='type'
+                  name="type"
                   type="text"
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm text-gray-500"
                   placeholder="e.g. vegetable"
+                  required
                 />
               </div>
 
-              {/* Quantity and Unit */}
               <div className="flex flex-col md:flex-row gap-4">
                 <div className="flex-1">
                   <label
@@ -149,9 +168,10 @@ fetch("http://localhost:3000/crop", {
                   <input
                     type="text"
                     id="quantity"
-                    name='quantity'
+                    name="quantity"
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                     placeholder="e.g., 500"
+                    required
                   />
                 </div>
                 <div className="flex-1">
@@ -165,29 +185,30 @@ fetch("http://localhost:3000/crop", {
                     type="text"
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm text-gray-500"
                     placeholder="e.g. Kg"
-                    name='unit'
+                    name="unit"
+                    required
                   />
                 </div>
               </div>
 
-              {/* Price per Unit */}
               <div>
                 <label
                   htmlFor="price"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Price per Unit (₹)
+                  Price per Unit (৳)
                 </label>
                 <input
                   type="text"
                   id="price"
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                   placeholder="e.g., 25"
-                  name='price'
+                  name="price"
+                  required
                 />
               </div>
 
-              {/* Description */}
+         
               <div>
                 <label
                   htmlFor="description"
@@ -196,15 +217,16 @@ fetch("http://localhost:3000/crop", {
                   Description
                 </label>
                 <textarea
-                name='description'
+                  name="description"
                   id="description"
                   rows="4"
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                  required
                   placeholder="Describe your crop in detail, including variety, cultivation method, and quality."
                 ></textarea>
               </div>
 
-              {/* Location */}
+
               <div>
                 <label
                   htmlFor="location"
@@ -217,17 +239,18 @@ fetch("http://localhost:3000/crop", {
                     <LocationPinIcon />
                   </div>
                   <input
-                  name='location'
+                    name="location"
                     type="text"
                     id="location"
                     className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                     placeholder="e.g. Dhaka"
+                    required
                   />
                 </div>
               </div>
             </div>
 
-            {/* --- Image URL Section --- */}
+ 
             <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg space-y-4">
               <h2 className="text-xl font-bold text-gray-800">Image URL</h2>
               <div>
@@ -236,17 +259,18 @@ fetch("http://localhost:3000/crop", {
                     <LinkIcon />
                   </div>
                   <input
-                  name='image'
+                    name="image"
                     type="text"
                     id="imageUrl"
                     className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                     placeholder="Paste image URL here"
+                    required
                   />
                 </div>
               </div>
             </div>
 
-            {/* --- Submit Button --- */}
+
             <div className="flex justify-end">
               <button
                 type="submit"

@@ -10,13 +10,13 @@ const PrivateRoute1 = ({children}) => {
 
 if (loading) {
   return (
-    <div className="flex justify-center p-5 m-3">
+    <div className="flex justify-center p-5 m-40">
       <span className="loading loading-bars loading-xl"></span>
     </div>
   );
 }
 
-console.log("Loading:", loading, "User:", user);
+
 if (user && user?.email) {
   return children;
 }

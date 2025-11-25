@@ -3,7 +3,7 @@ import PostForm from '../Components/PostForm';
 
 const AddCrops = () => {
     return (
-        <div>
+        <div className='mt-25'>
       <PostForm></PostForm>
         </div>
     );

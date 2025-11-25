@@ -20,6 +20,7 @@ import PrivateRoute3 from './Provider/PrivateRoute3.jsx';
 import PrivateRoute4 from './Provider/PrivateRoute4.jsx';
 import Profile from './Pages/Profile.jsx';
 import PrivateRoute5 from './Provider/PrivateRoute5.jsx';
+import { MdErrorOutline } from 'react-icons/md';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
+       
         hydrateFallbackElement: (
           <div className="flex justify-center p-5 m-3">
             <span className="loading loading-bars loading-xl"></span>
@@ -70,7 +72,7 @@ const router = createBrowserRouter([
           </PrivateRoute2>
         ),
         hydrateFallbackElement: (
-          <div className="flex justify-center p-5 m-3">
+          <div className="flex justify-center p-5 m-40">
             <span className="loading loading-bars loading-xl"></span>
           </div>
         ),
@@ -122,8 +124,22 @@ const router = createBrowserRouter([
             <Profile></Profile>
           </PrivateRoute5>
         ),
-      },
+        hydrateFallbackElement: (
+          <div className="flex justify-center p-5 m-3">
+            <span className="loading loading-bars loading-xl"></span>
+          </div>
+        ),
+      }
     ],
+  },
+  {
+    path: "*",
+    element: (
+      <div className="flex justify-center items-center gap-2 text-center mx-auto m-20">
+        <MdErrorOutline />{" "}
+        <span>Error-404: Currently This Page is not Available</span>
+      </div>
+    ),
   },
 ]);
 

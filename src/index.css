@@ -16,4 +16,19 @@
     background-color: #27e46642;
 }
 
+.my-confirm-btn {
+  background-color: #07f255 ;
+  color: white ;
+}
 
+.my-deny-btn {
+  background-color: #dc2626 !important; /* red */
+  color: white !important;
+}
+
+
+
+.swal-ok-btn {
+background-color: #07f255 ;
+  color: white ;
+}

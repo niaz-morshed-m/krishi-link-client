@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import Swal from 'sweetalert2';
+import Aos from 'aos';
 
 const InterestForm = ({data}) => {
 const {user} = useContext(AuthContext)
@@ -64,25 +65,29 @@ const handleSubmitInterest = (e) => {
     status: "pending",
   };
 
-  fetch(`http://localhost:3000/crop/addInterest/${data._id}`, {
+  fetch(`https://krishi-link-server-ten.vercel.app/crop/addInterest/${data._id}`, {
     method: "PATCH",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(newInterest),
   })
     .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
+    .then(() => {
+    
       Swal.fire({
         title: "Interest sent to the Owner",
+        customClass: {
+          confirmButton: "my-confirm-btn",
+        
+        },
         icon: "success",
         draggable: true,
       }).then(() => {
-        // ✅ Clear inputs
+
         form.reset();
         setQuantity(0);
         setTotalPrice(0);
 
-        // ✅ Disable further submission instantly
+ 
         setError("You have already expressed interest in this crop.");
         setStatus(true);
       });
@@ -90,18 +95,26 @@ const handleSubmitInterest = (e) => {
 };
 
   
-
+  useEffect(() => {
+             Aos.init();
+           }, []);
+         
+         
  
 
     return (
       <div className="w-full lg:w-2/5 space-y-6">
-        <div className="bg-white p-6 rounded-lg shadow-lg space-y-4">
+        <div
+          className="bg-white p-6 rounded-lg shadow-lg space-y-4"
+          data-aos-duration="5000"
+          data-aos="fade-right"
+        >
           <h3 className="text-xl font-bold text-gray-800">
             Express Your Interest
           </h3>
 
           <form onSubmit={handleSubmitInterest} className="space-y-4">
-            {/* Quantity Input */}
+  
             <div>
               <label
                 htmlFor="quantity"
@@ -116,11 +129,12 @@ const handleSubmitInterest = (e) => {
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                 placeholder="Quantity"
                 onChange={handleTotalPrice}
+                required
               />
               {error && <span className="text-sm text-red-600">{error}</span>}
             </div>
 
-            {/* Message Input */}
+
             <div>
               <label
                 htmlFor="message"
@@ -134,10 +148,11 @@ const handleSubmitInterest = (e) => {
                 rows="4"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                 placeholder="Type your message here..."
+                required
               ></textarea>
             </div>
 
-            {/* Total Price Display (Hardcoded) */}
+  
             <div className="border-t border-gray-200 pt-4">
               <h4 className="text-lg font-bold text-gray-800">
                 Total Price: TK {totalPrice}

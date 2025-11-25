@@ -47,7 +47,7 @@ useEffect(() => {
     unSubscribe();
   };
 }, []);
-console.log(user)
+
   const authData = {
     registerWithEmail,
     user,

@@ -1,10 +1,17 @@
-import React from 'react';
+import Aos from 'aos';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router';
 
 const CropCard = ({crop}) => {
     const {name, type, pricePerUnit, unit, description, location, image, _id} = crop
+      useEffect(() => {
+             Aos.init();
+           }, []);
+         
+          
     return (
-      <div className="card bg-base-100  shadow-sm space-y-2">
+      <div className="card bg-base-100  shadow-sm space-y-2" data-aos-duration="5000"
+          data-aos="fade-up">
         <figure className="max-h-[200px]">
           <img src={image} alt="Shoes" className="rounded-t-xl" />
         </figure>
@@ -19,7 +26,7 @@ const CropCard = ({crop}) => {
               <p>{description}</p>
             </div>
             <div>
-              <p className="text-xl font-semibold">
+              <p className="text-sm font-semibold">
                 TK {pricePerUnit}/{unit}
               </p>
             </div>

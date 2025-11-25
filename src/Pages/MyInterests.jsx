@@ -8,16 +8,16 @@ const MyInterests = () => {
     const {user} = useContext(AuthContext)
     const [interestsData, seInterestsData] = useState([])
      useEffect(() => {
-            fetch(`http://localhost:3000/interests/${user?.email}`)
-              .then((res) => res.json()) // convert response to JSON
+            fetch(`https://krishi-link-server-ten.vercel.app/interests/${user?.email}`)
+              .then((res) => res.json()) 
               .then((info) => {
                 seInterestsData(info);
-              }) // set the fetched data
-              .catch((err) => console.log("Error:", err)); // handle error
+              }) 
+              .catch((err) => console.log("Error:", err));
           }, [user]);
           
     return (
-        <div>
+        <div className='mt-30'>
           <MyInterestsTable interestsData={interestsData}></MyInterestsTable>
         </div>
     );

@@ -1,4 +1,5 @@
-import React from 'react';
+import Aos from 'aos';
+import React, { useEffect } from 'react';
 
 const DetailCard = ({data}) => {
     const {
@@ -14,9 +15,16 @@ const DetailCard = ({data}) => {
       owner
     } = data;
 
+  useEffect(() => {
+             Aos.init();
+           }, []);
+         
+           
+    
     return (
-      <div className="w-full lg:w-3/5 space-y-4">
-        {/* Image Placeholder */}
+      <div className="w-full lg:w-3/5 space-y-4" data-aos-duration="5000"
+          data-aos="fade-up">
+   
         <div className="">
           <img
             className="w-full h-64 md:h-80 bg-gray-200 rounded-lg flex items-center justify-center"
@@ -25,14 +33,14 @@ const DetailCard = ({data}) => {
           />
         </div>
 
-        {/* Tags (Hardcoded) */}
+
         <div className="flex flex-wrap gap-2">
           <span className="bg-gray-100 text-gray-700 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">
             {type}
           </span>
         </div>
 
-        {/* Description (Hardcoded) */}
+
         <p className="text-gray-600">{description}</p>
 
         {/* Other Details (Hardcoded) */}
