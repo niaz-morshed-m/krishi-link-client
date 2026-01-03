@@ -21,6 +21,9 @@ import PrivateRoute4 from './Provider/PrivateRoute4.jsx';
 import Profile from './Pages/Profile.jsx';
 import PrivateRoute5 from './Provider/PrivateRoute5.jsx';
 import { MdErrorOutline } from 'react-icons/md';
+import Dashboard from './dashboard/Dashboard.jsx';
+import DashboardHome from './dashboard/DashboardHome.jsx';
+import About from './Pages/About.jsx';
 
 const router = createBrowserRouter([
   {
@@ -30,7 +33,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
-       
+
         hydrateFallbackElement: (
           <div className="flex justify-center p-5 m-3">
             <span className="loading loading-bars loading-xl"></span>
@@ -64,52 +67,10 @@ const router = createBrowserRouter([
           </div>
         ),
       },
-      {
-        path: "/myPosts",
-        element: (
-          <PrivateRoute2>
-            <MyPosts></MyPosts>
-          </PrivateRoute2>
-        ),
-        hydrateFallbackElement: (
-          <div className="flex justify-center p-5 m-40">
-            <span className="loading loading-bars loading-xl"></span>
-          </div>
-        ),
-      },
-      {
-        path: "myInterests",
-        element: (
-          <PrivateRoute4>
-            <MyInterests></MyInterests>
-          </PrivateRoute4>
-        ),
-        hydrateFallbackElement: (
-          <div className="flex justify-center p-5 m-3">
-            <span className="loading loading-bars loading-xl"></span>
-          </div>
-        ),
-      },
-      {
-        path: "/addCrops",
-        element: (
-          <PrivateRoute3>
-            <AddCrops></AddCrops>
-          </PrivateRoute3>
-        ),
-        hydrateFallbackElement: (
-          <div className="flex justify-center p-5 m-3">
-            <span className="loading loading-bars loading-xl"></span>
-          </div>
-        ),
-      },
+
       {
         path: "/details/:id",
-        element: (
-          <PrivateRoute1>
-            <CropDetails></CropDetails>
-          </PrivateRoute1>
-        ),
+        element: <CropDetails></CropDetails>,
         hydrateFallbackElement: (
           <div className="flex justify-center p-5 m-3">
             <span className="loading loading-bars loading-xl"></span>
@@ -129,7 +90,59 @@ const router = createBrowserRouter([
             <span className="loading loading-bars loading-xl"></span>
           </div>
         ),
+      },{
+        path:"/about",
+        element:<About></About>
       }
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        index: true,
+        element: <DashboardHome></DashboardHome>,
+      },
+      {
+        path: "/dashboard/myPosts",
+        element: (
+          <PrivateRoute2>
+            <MyPosts></MyPosts>
+          </PrivateRoute2>
+        ),
+        hydrateFallbackElement: (
+          <div className="flex justify-center p-5 m-40">
+            <span className="loading loading-bars loading-xl"></span>
+          </div>
+        ),
+      },
+      {
+        path: "/dashboard/myInterests",
+        element: (
+          <PrivateRoute4>
+            <MyInterests></MyInterests>
+          </PrivateRoute4>
+        ),
+        hydrateFallbackElement: (
+          <div className="flex justify-center p-5 m-3">
+            <span className="loading loading-bars loading-xl"></span>
+          </div>
+        ),
+      },
+      {
+        path: "/dashboard/addCrops",
+        element: (
+          <PrivateRoute3>
+            <AddCrops></AddCrops>
+          </PrivateRoute3>
+        ),
+        hydrateFallbackElement: (
+          <div className="flex justify-center p-5 m-3">
+            <span className="loading loading-bars loading-xl"></span>
+          </div>
+        ),
+      },
     ],
   },
   {

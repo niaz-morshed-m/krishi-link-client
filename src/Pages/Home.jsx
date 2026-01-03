@@ -2,9 +2,11 @@ import React from 'react';
 import LatestCrop from '../Components/LatestCrops/LatestCrop';
 import Slider from '../Components/Slider';
 import HowItWorks from '../Components/HowItWorks';
-import Blog from '../Components/Blog';
 import Statistics from '../Components/Statistics';
 import WhyUs from '../Components/WhyUs';
+import Testimonials from '../Components/Testimonials';
+import AgroBlogSection from '../Components/AgroBlogSection';
+import TopLocations from '../Components/TopLocations';
 
 
 
@@ -15,7 +17,9 @@ const Home = () => {
         <Slider></Slider>
         <LatestCrop></LatestCrop>
         <HowItWorks></HowItWorks>
-        <Blog></Blog>
+        <Testimonials></Testimonials>
+       <AgroBlogSection></AgroBlogSection>
+       <TopLocations></TopLocations>
         <Statistics></Statistics>
 <WhyUs></WhyUs>
       </div>

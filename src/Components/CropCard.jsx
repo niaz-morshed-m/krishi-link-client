@@ -10,8 +10,11 @@ const CropCard = ({crop}) => {
          
           
     return (
-      <div className="card bg-base-100  shadow-sm space-y-2" data-aos-duration="5000"
-          data-aos="fade-up">
+      <div
+        className="card bg-base-100 shadow-lg rounded-2xl border border-base-200 space-y-2"
+        data-aos-duration="5000"
+        data-aos="fade-up"
+      >
         <figure className="max-h-[200px]">
           <img src={image} alt="Shoes" className="rounded-t-xl" />
         </figure>
