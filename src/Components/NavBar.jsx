@@ -3,19 +3,15 @@ import { Link, NavLink, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 import logo from "../assets/Casxsxpture-removebg-preview.png"
 import Swal from 'sweetalert2';
-import { BiLogIn, BiLogOut } from 'react-icons/bi';
+import { BiLogIn } from 'react-icons/bi';
 import { TbLogout2 } from 'react-icons/tb';
 import { IoMdPersonAdd } from 'react-icons/io';
 import {
   HiOutlineHome,
   HiOutlineInformationCircle,
   HiOutlineViewGrid,
-
 } from "react-icons/hi";
-import { MdOutlineAgriculture } from 'react-icons/md';
-import { HiOutlineGlobeEuropeAfrica } from 'react-icons/hi2';
 import { LuLeafyGreen } from 'react-icons/lu';
-import { FiBell } from 'react-icons/fi';
 const NavBar = () => {
     const { user, logout } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -33,10 +29,12 @@ const NavBar = () => {
       }).then((result) => {
  
         if (result.isConfirmed) {
-          Swal.fire("Logged Out Successfully");
-           customClass: {
-    confirmButton: "swal-ok-btn"
-  }
+          Swal.fire({
+            title: "Logged Out Successfully",
+            customClass: {
+              confirmButton: "swal-ok-btn"
+            }
+          });
            logout();
            navigate('/')
         } 
@@ -101,42 +99,35 @@ const NavBar = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                {" "}
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
+                />
               </svg>
             </div>
             <ul
-              tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               {links}
-              <div
-                className="tooltip tooltip-bottom mx-1 lg:hidden"
-                data-tip={
-                  theme === "dark"
-                    ? "Switch to Light Mode"
-                    : "Switch to Dark Mode"
-                }
-              >
-                <span className="mr-2 text-xs ml-2">Theme</span>
-                <input
-                  type="checkbox"
-                  className="toggle toggle-xs"
-                  onChange={handleThemeToggle}
-                  checked={theme === "dark"}
-                />
-              </div>
+              <li className="lg:hidden">
+                <div className="flex items-center justify-between p-2">
+                  <span className="text-sm">Theme</span>
+                  <input
+                    type="checkbox"
+                    className="toggle toggle-xs"
+                    onChange={handleThemeToggle}
+                    checked={theme === "dark"}
+                  />
+                </div>
+              </li>
             </ul>
           </div>
-          <Link className="/">
-            {" "}
-            <figure className="btn btn-ghost text-xl">
-              <img className="w-[180px]" src={logo} alt="" />
+          <Link to="/" className="btn btn-ghost text-xl">
+            <figure>
+              <img className="w-[120px] sm:w-[150px] lg:w-[180px]" src={logo} alt="Logo" />
             </figure>
           </Link>
         </div>
@@ -145,7 +136,7 @@ const NavBar = () => {
         </div>
         <div className="navbar-end">
           <div
-            className="tooltip tooltip-bottom mx-3"
+            className="tooltip tooltip-bottom mx-3 hidden lg:block"
             data-tip={
               theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"
             }
@@ -158,14 +149,14 @@ const NavBar = () => {
             />
           </div>
           {user && (
-            <div className="flex-none gap-4">
-              <div className="dropdown dropdown-end mx-3">
+            <div className="flex-none gap-2 lg:gap-4">
+              <div className="dropdown dropdown-end">
                 <div
                   tabIndex={0}
                   role="button"
                   className="btn btn-ghost btn-circle avatar"
                 >
-                  <div className="w-10 rounded-full">
+                  <div className="w-8 lg:w-10 rounded-full">
                     <img alt="User" src={user && user.photoURL} />
                   </div>
                 </div>
@@ -174,7 +165,6 @@ const NavBar = () => {
                   className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                 >
                   <Link to="/profile">
-                    {" "}
                     <li>
                       <span>Profile</span>
                     </li>
@@ -195,18 +185,22 @@ const NavBar = () => {
             </div>
           )}
 
-          <div className="flex gap-2.5">
+          <div className="flex gap-1 sm:gap-2">
             {!user && (
               <>
                 <Link to="/register">
-                  <button className="btn bg-primary btn-sm md:btn-md lg:btn-md flex items-center gap-1">
-                    <IoMdPersonAdd /> Register
+                  <button className="btn bg-primary btn-xs sm:btn-sm md:btn-md lg:btn-md flex items-center gap-1">
+                    <IoMdPersonAdd className="hidden sm:block" /> 
+                    <span className="hidden sm:block">Register</span>
+                    <span className="sm:hidden">Sign Up</span>
                   </button>
                 </Link>
 
                 <Link to="/login">
-                  <button className="btn bg-primary btn-sm md:btn-md lg:btn-md flex items-center gap-1">
-                    <BiLogIn /> Login
+                  <button className="btn bg-primary btn-xs sm:btn-sm md:btn-md lg:btn-md flex items-center gap-1">
+                    <BiLogIn className="hidden sm:block" /> 
+                    <span className="hidden sm:block">Login</span>
+                    <span className="sm:hidden">Sign In</span>
                   </button>
                 </Link>
               </>
