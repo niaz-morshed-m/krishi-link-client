@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, Navigate } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import Aos from "aos";
 
@@ -13,6 +13,8 @@ const Register = () => {
        useEffect(() => {
              Aos.init();
            }, []);
+         
+         const navigate = useNavigate();
          
          
   const handleRegister = (e) => {
@@ -51,13 +53,15 @@ if (!validPassword) {
           email: email,
           image: photo,
         };
-         fetch("https://krishi-link-server-ten.vercel.app/users", {
+         fetch("http://localhost:3000/users", {
            method: "POST",
            headers: { "content-type": "application/json" },
            body: JSON.stringify(newUser),
          })
            .then((res) => res.json())
-           .then((data) => console.log(data));
+           .then((data) => {
+             navigate('/');
+           });
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -76,15 +80,16 @@ if (!validPassword) {
           image: result.user.photoURL,
         };
         
-        fetch("https://krishi-link-server-ten.vercel.app/users", {
+        fetch("http://localhost:3000/users", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(newUser),
         })
           .then((res) => res.json())
-          .then((data) => console.log(data));
-
-        return <Navigate to="/"></Navigate>;
+          .then((data) => {
+            console.log(data);
+            navigate('/');
+          });
       })
       .catch(() => {});
   };

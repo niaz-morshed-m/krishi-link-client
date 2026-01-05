@@ -13,9 +13,9 @@ const [data, setData] = useState({})
 const {owner} = data
     const {id} =useParams()
      useEffect(() => {
-    fetch(`https://krishi-link-server-ten.vercel.app/crop/details/${id}`)
-      .then((res) => res.json()) 
-      .then((data) => setData(data)) 
+    fetch(`http://localhost:3000/crop/details/${id}`)
+      .then((res) => res.json())
+      .then((data) => setData(data))
       .catch((err) => console.log("Error:", err)); 
   }, [id]);
 
@@ -31,7 +31,7 @@ const {owner} = data
 
         
 
-            {user&&user.email === owner?.ownerEmail ? (
+            {user &&user.email === owner?.ownerEmail ? (
               <Interest data={data}></Interest>
             ) : (
               <InterestForm data={data}></InterestForm>

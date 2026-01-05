@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "motion/react";
 import { FaCalendarAlt, FaArrowRight } from "react-icons/fa";
 
 const AgroBlogSection = () => {
@@ -32,16 +33,20 @@ const AgroBlogSection = () => {
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="mt-25 bg-white">
       <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center text-green-700 mb-10">
           Farming Tips & News
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {blogs.map((blog) => (
-            <div
+            <motion.div
               key={blog.id}
               className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow border border-gray-100"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
             >
               <figure>
                 <img
@@ -64,7 +69,7 @@ const AgroBlogSection = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

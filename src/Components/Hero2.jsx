@@ -3,8 +3,7 @@ import React from 'react';
 const Hero2 = () => {
     return (
       <div
-        className="hero rounded-3xl my-2.5 bg-cover bg-center bg-no-repeat 
-             aspect-[16/9] sm:aspect-[16/9] md:min-h-screen"
+        className="hero rounded-3xl my-2.5 bg-cover bg-center bg-no-repeat h-[60vh] md:h-[70vh]"
         style={{
           backgroundImage:
             "url('https://thumbs.dreamstime.com/b/farmer-control-unmanned-aircraft-dorn-corn-agricultural-automation-digital-farming-132738255.jpg')",

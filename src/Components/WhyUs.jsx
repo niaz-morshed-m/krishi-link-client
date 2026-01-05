@@ -8,9 +8,14 @@ const WhyUs = () => {
          
            
     return (
-      <div className=" my-25 space-y-5" data-aos-duration="5000"
-          data-aos="fade-right">
-        <p className="text-4xl font-bold text-center">Why Choose KrishiLink</p>
+      <div
+        className=" my-25 space-y-5"
+        data-aos-duration="5000"
+        data-aos="fade-right"
+      >
+        <h2 className="text-3xl text-center font-bold text-green-800 mb-6">
+          Why Choose KrishiLink
+        </h2>
         <ul className="timeline timeline-vertical">
           <li>
             <div className="timeline-start timeline-box">
@@ -39,7 +44,6 @@ const WhyUs = () => {
             </div>
             <hr />
           </li>
-       
         </ul>
       </div>
     );

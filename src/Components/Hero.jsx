@@ -3,8 +3,7 @@ import React from 'react';
 const Hero = () => {
     return (
       <div
-        className="hero rounded-3xl my-2.5 bg-cover bg-center bg-no-repeat 
-             aspect-[16/9] sm:aspect-[16/9] md:min-h-screen"
+        className="hero rounded-3xl my-2.5 bg-cover bg-center bg-no-repeat h-[60vh] md:h-[70vh]"
         style={{
           backgroundImage:
             "url('https://static.vecteezy.com/system/resources/previews/004/486/983/large_2x/couple-farmer-working-on-green-rice-field-together-in-thailand-photo.jpg')",

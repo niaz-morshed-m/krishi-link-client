@@ -1,10 +1,17 @@
 import React from "react";
+import { motion } from "motion/react";
 import { FaLeaf, FaShoppingBasket } from "react-icons/fa";
 import { Link } from "react-router-dom"; // Assuming you use React Router
 
 const CommunityJoinCTA = () => {
   return (
-    <section className="py-20 bg-green-700 text-white relative overflow-hidden">
+    <motion.section
+      className="py-20 bg-green-700 text-white relative overflow-hidden mt-25 rounded-2xl"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+    >
       {/* Background Pattern Overlay (Optional) */}
       <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/ag-square.png')]"></div>
 
@@ -33,7 +40,7 @@ const CommunityJoinCTA = () => {
           </Link>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -37,15 +37,13 @@ const newUser = {
    photoUrl: photo
 }
 
-fetch(`https://krishi-link-server-ten.vercel.app/user/${user.email}`, {
+fetch(`http://localhost:3000/user/${user.email}`, {
   method: "PATCH",
   headers: { "content-type": "application/json" },
   body: JSON.stringify(newUser),
 })
   .then((res) => res.json())
-  .then(() => {
- 
-  });
+  .then(() => {});
 
   };
   return (

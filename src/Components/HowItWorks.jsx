@@ -11,7 +11,7 @@ const HowItWorks = () => {
 
   return (
     <div className="mt-25 space-y-9">
-      <p className="text-4xl font-bold text-center">How it works</p>
+      <h2 className="text-3xl font-bold text-green-800 mb-6 text-center">How it works</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Step 1 */}
@@ -24,11 +24,11 @@ const HowItWorks = () => {
             1
           </h1>
 
-          <p className="text-primary flex justify-center text-6xl">
+          <p className="text-primary flex justify-center text-4xl">
             <IoPersonAdd />
           </p>
 
-          <p className="font-medium text-3xl text-center">Register</p>
+          <p className="font-medium text-2xl text-center">Register</p>
 
           <p className="text-[#565D6D] text-center">
             Sign up easily as a farmer, trader, or consumer.
@@ -45,11 +45,11 @@ const HowItWorks = () => {
             2
           </h1>
 
-          <p className="text-primary flex justify-center text-6xl">
+          <p className="text-primary flex justify-center text-4xl">
             <FaLeaf />
           </p>
 
-          <p className="font-medium text-3xl text-center">Post or Browse</p>
+          <p className="font-medium text-2xl text-center">Post or Browse</p>
 
           <p className="text-[#565D6D] text-center">
             List your crops or find fresh produce from local farms.
@@ -66,11 +66,11 @@ const HowItWorks = () => {
             3
           </h1>
 
-          <p className="text-primary flex justify-center text-6xl">
+          <p className="text-primary flex justify-center text-4xl">
             <FaHandshake />
           </p>
 
-          <p className="font-medium text-3xl text-center">Connect & Transact</p>
+          <p className="font-medium text-2xl text-center">Connect & Transact</p>
 
           <p className="text-[#565D6D] text-center">
             Connect directly with partners and secure your deals.

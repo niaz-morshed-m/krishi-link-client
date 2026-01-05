@@ -31,6 +31,8 @@ const profileUpdate = (name, url)=>{
    return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: url,
+    }).then(() => {
+      return auth.currentUser.reload();
     });
 }
 

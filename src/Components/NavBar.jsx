@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 import logo from "../assets/Casxsxpture-removebg-preview.png"
@@ -75,8 +75,22 @@ const NavBar = () => {
         )}
       </>
     );
+
+    const [theme, setTheme] = useState(
+      localStorage.getItem("theme") || "light"
+    );
+
+    // Apply theme
+    useEffect(() => {
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+    }, [theme]);
+
+    const handleThemeToggle = (e) => {
+      setTheme(e.target.checked ? "dark" : "light");
+    };
     return (
-      <div className="sticky top-0 left-0 w-full z-50 navbar bg-base-100/50 backdrop-blur-md border border-white/20 shadow-sm rounded-xl">
+      <div className="sticky top-0 left-0 w-full z-50 navbar bg-base-100/50 backdrop-blur-md border border-white/20 shadow-sm">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -101,6 +115,22 @@ const NavBar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               {links}
+              <div
+                className="tooltip tooltip-bottom mx-1 lg:hidden"
+                data-tip={
+                  theme === "dark"
+                    ? "Switch to Light Mode"
+                    : "Switch to Dark Mode"
+                }
+              >
+                <span className="mr-2 text-xs ml-2">Theme</span>
+                <input
+                  type="checkbox"
+                  className="toggle toggle-xs"
+                  onChange={handleThemeToggle}
+                  checked={theme === "dark"}
+                />
+              </div>
             </ul>
           </div>
           <Link className="/">
@@ -114,6 +144,19 @@ const NavBar = () => {
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
+          <div
+            className="tooltip tooltip-bottom mx-3"
+            data-tip={
+              theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"
+            }
+          >
+            <input
+              type="checkbox"
+              className="toggle toggle-xs"
+              onChange={handleThemeToggle}
+              checked={theme === "dark"}
+            />
+          </div>
           {user && (
             <div className="flex-none gap-4">
               <div className="dropdown dropdown-end mx-3">
@@ -130,7 +173,7 @@ const NavBar = () => {
                   tabIndex={0}
                   className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                 >
-                  <Link to='/profile'>
+                  <Link to="/profile">
                     {" "}
                     <li>
                       <span>Profile</span>

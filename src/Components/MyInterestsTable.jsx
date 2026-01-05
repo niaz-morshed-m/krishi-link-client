@@ -56,10 +56,10 @@ const MyInterestsTable = ({ interestsData }) => {
               <tr key={index} className="hover:bg-base-300">
                 <th>{index + 1}</th>
                 <td>{interest.cropName}</td>
-                <td>{interest.ownerInfo.ownerName}</td>
-                <td>{interest.interest.quantity}</td>
-                <td>{interest.interest.message}</td>
-                <td>{interest.interest.status}</td>
+                <td>{interest.ownerName}</td>
+                <td>{interest.quantity}</td>
+                <td>{interest.message}</td>
+                <td>{interest.status}</td>
               </tr>
             ))}
           </tbody>

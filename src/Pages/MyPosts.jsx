@@ -11,11 +11,11 @@ const MyPosts = () => {
     const [data, setData] = useState([])
 
      useEffect(() => {
-        fetch("https://krishi-link-server-ten.vercel.app/crop/all")
+        fetch("http://localhost:3000/crop/all")
           .then((res) => res.json())
           .then((info) => {
-            setData(info)
-          }) 
+            setData(info);
+          })
           .catch((err) => console.log("Error:", err)); 
       }, [user]);
   
@@ -37,7 +37,7 @@ const handleDelete = (id) => {
     confirmButtonText: "Yes, delete it!",
   }).then((result) => {
     if (result.isConfirmed) {
-      fetch(`https://krishi-link-server-ten.vercel.app/crop/delete/${id}`, {
+      fetch(`http://localhost:3000/crop/delete/${id}`, {
         method: "DELETE",
         headers: { "content-type": "application/json" },
       })
@@ -56,6 +56,7 @@ const handleDelete = (id) => {
 
     return filteredData && filteredData.length > 0 ? (
       <div className="overflow-x-auto m-8">
+        <h1 className="text-2xl font-bold my-3 text-center text-primary">Your Posts</h1>
         <table className="table">
           {/* head */}
           <thead className="text-center">

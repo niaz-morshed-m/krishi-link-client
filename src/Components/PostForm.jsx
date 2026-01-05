@@ -77,7 +77,7 @@ const newCrop = {
   interests: [],
 };
 
-fetch("https://krishi-link-server-ten.vercel.app/crop", {
+fetch("http://localhost:3000/crop", {
   method: "POST",
   headers: { "content-type": "application/json" },
   body: JSON.stringify(newCrop),
@@ -85,16 +85,15 @@ fetch("https://krishi-link-server-ten.vercel.app/crop", {
   .then((res) => res.json())
   .then(() => {
     Swal.fire({
-            title: "Your Crop Posted",
-            customClass: {
-              confirmButton: "my-confirm-btn",
-            
-            },
-            icon: "success",
-            draggable: true,
-          })
-    navigate("/myPosts")
-  } );
+      title: "Your Crop Posted",
+      customClass: {
+        confirmButton: "my-confirm-btn",
+      },
+      icon: "success",
+      draggable: true,
+    });
+    navigate("/dashboard/myPosts");
+  });
 
 }
   useEffect(() => {

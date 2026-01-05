@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import Swal from 'sweetalert2';
 import Aos from 'aos';
+import { useNavigate } from 'react-router';
 
 const InterestForm = ({data}) => {
 const {user} = useContext(AuthContext)
@@ -10,17 +11,27 @@ const [quantity, setQuantity] =useState(0)
 const [totalPrice, setTotalPrice] = useState(0)
 const [status, setStatus] = useState(false)
 
-  const { interests = [] } = data;
 
+ const [interestsData, seInterestsData] = useState([])
+     useEffect(() => {
+            fetch(`http://localhost:3000/myInterests/${user?.email}`)
+              .then((res) => res.json())
+              .then((info) => {
+                seInterestsData(info);
+              })
+              .catch((err) => console.log("Error:", err));
+          }, [user]);
+
+console.log(interestsData)
  useEffect(() => {
-   const userInterest = interests.find(
-     (interest) => interest.userEmail === user?.email
+   const userInterest = interestsData.find(
+     (interest) => data._id  === interest.cropId
    );
    if (userInterest) {
      setError("You have already expressed interest in this crop.");
      setStatus(true);
    }
- }, [interests, user?.email]);
+ }, [interestsData, user?.email]);
 
 
 const handleTotalPrice = (e) => {
@@ -48,51 +59,61 @@ const handleTotalPrice = (e) => {
     setTotalPrice(value * parseInt(data.pricePerUnit));
   }
 };
-
+const navigate = useNavigate();
 const handleSubmitInterest = (e) => {
   e.preventDefault();
-  console.log("button clicked");
+
+  // 🚨 If user is NOT logged in
+  if (!user) {
+    Swal.fire({
+      title: "Login Required",
+      text: "Please login to express your interest.",
+      icon: "warning",
+      confirmButtonText: "Go to Login",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/login");
+      }
+    });
+    return;
+  }
+
   const form = e.target;
   const quantity = form.quantity.value;
   const message = form.message.value;
 
   const newInterest = {
     cropId: data._id,
+    cropName: data.name,
+    ownerName: data.owner.ownerName,
     userEmail: user.email,
     userName: user.displayName,
+    ownerEmail: data?.owner.ownerEmail,
     quantity: quantity,
     message: message,
     status: "pending",
   };
 
-  fetch(`https://krishi-link-server-ten.vercel.app/crop/addInterest/${data._id}`, {
-    method: "PATCH",
+  fetch(`http://localhost:3000/crop/addInterest`, {
+    method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(newInterest),
   })
     .then((res) => res.json())
     .then(() => {
-    
       Swal.fire({
         title: "Interest sent to the Owner",
-        customClass: {
-          confirmButton: "my-confirm-btn",
-        
-        },
         icon: "success",
-        draggable: true,
       }).then(() => {
-
         form.reset();
         setQuantity(0);
         setTotalPrice(0);
-
- 
         setError("You have already expressed interest in this crop.");
         setStatus(true);
       });
     });
 };
+
 
   
   useEffect(() => {

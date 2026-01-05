@@ -3,8 +3,7 @@ import React from 'react';
 const Hero3 = () => {
     return (
       <div
-        className="hero rounded-3xl my-2.5 bg-cover bg-center bg-no-repeat 
-             aspect-[16/9] sm:aspect-[16/9] md:min-h-screen"
+        className="hero rounded-3xl my-2.5 bg-cover bg-center bg-no-repeat h-[60vh] md:h-[70vh]"
         style={{
           backgroundImage:
             "url('https://media.istockphoto.com/id/1262878973/photo/rice%E3%80%80farmer.jpg?s=612x612&w=0&k=20&c=jc5A0bXiq3Bz4k79Fqlt-LcjqqkrWFGyJ9haoW46MKQ=')",

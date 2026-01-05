@@ -24,6 +24,9 @@ import { MdErrorOutline } from 'react-icons/md';
 import Dashboard from './dashboard/Dashboard.jsx';
 import DashboardHome from './dashboard/DashboardHome.jsx';
 import About from './Pages/About.jsx';
+import TermsOfUse from './Pages/TermsOfUse.jsx';
+import PrivacyPolicy from './Pages/PrivacyPolicy.jsx';
+import CookiePolicy from './Pages/CookiePolicy.jsx';
 
 const router = createBrowserRouter([
   {
@@ -90,10 +93,43 @@ const router = createBrowserRouter([
             <span className="loading loading-bars loading-xl"></span>
           </div>
         ),
-      },{
-        path:"/about",
-        element:<About></About>
-      }
+      },
+      {
+        path: "/about",
+        element: <About></About>,
+        hydrateFallbackElement: (
+          <div className="flex justify-center p-5 m-3">
+            <span className="loading loading-bars loading-xl"></span>
+          </div>
+        ),
+      },
+      {
+        path: "/terms-of-use",
+        element: <TermsOfUse></TermsOfUse>,
+        hydrateFallbackElement: (
+          <div className="flex justify-center p-5 m-3">
+            <span className="loading loading-bars loading-xl"></span>
+          </div>
+        ),
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy></PrivacyPolicy>,
+        hydrateFallbackElement: (
+          <div className="flex justify-center p-5 m-3">
+            <span className="loading loading-bars loading-xl"></span>
+          </div>
+        ),
+      },
+      {
+        path: "/cookie-policy",
+        element: <CookiePolicy></CookiePolicy>,
+        hydrateFallbackElement: (
+          <div className="flex justify-center p-5 m-3">
+            <span className="loading loading-bars loading-xl"></span>
+          </div>
+        ),
+      },
     ],
   },
   {
@@ -102,10 +138,6 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DashboardHome></DashboardHome>,
-      },
-      {
-        path: "/dashboard/myPosts",
         element: (
           <PrivateRoute2>
             <MyPosts></MyPosts>
