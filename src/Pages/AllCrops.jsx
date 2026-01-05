@@ -9,21 +9,36 @@ const AllCrops = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredCrops, setFilteredCrops] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
 
   const loaderRef = useRef(null);
 
   // Fetch all crops
   useEffect(() => {
-    setLoading(true);
-    fetch("http://localhost:3000/crop/all")
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchAllCrops = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("https://krishi-link-server-ten.vercel.app/crop/all");
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
         setAllCrops(data);
         setFilteredCrops(data);
+      } catch (error) {
+        console.error('Error fetching crops:', error);
+        setError(error.message);
+        setAllCrops([]);
+        setFilteredCrops([]);
+      } finally {
         setLoading(false);
-      })
-      .catch(() => setLoading(false));
+      }
+    };
+
+    fetchAllCrops();
   }, []);
 
   // Search filter
@@ -92,6 +107,18 @@ const AllCrops = () => {
       {loading ? (
         <div className="flex justify-center p-10">
           <span className="loading loading-bars loading-xl"></span>
+        </div>
+      ) : error ? (
+        <div className="flex flex-col items-center justify-center p-10 text-center">
+          <MdErrorOutline size={48} className="text-red-500 mb-4" />
+          <p className="text-xl text-red-600 mb-2">Failed to load crops</p>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="btn bg-[#07f255]"
+          >
+            Try Again
+          </button>
         </div>
       ) : filteredCrops.length > 0 ? (
         <>

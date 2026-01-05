@@ -17,7 +17,7 @@ const Login = () => {
           email: result.user.email,
         };
 
-        fetch("http://localhost:3000/users", {
+        fetch("https://krishi-link-server-ten.vercel.app/users", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(newUser),

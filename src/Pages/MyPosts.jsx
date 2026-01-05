@@ -11,7 +11,7 @@ const MyPosts = () => {
     const [data, setData] = useState([])
 
      useEffect(() => {
-        fetch("http://localhost:3000/crop/all")
+        fetch("https://krishi-link-server-ten.vercel.app/crop/all")
           .then((res) => res.json())
           .then((info) => {
             setData(info);
@@ -37,7 +37,7 @@ const handleDelete = (id) => {
     confirmButtonText: "Yes, delete it!",
   }).then((result) => {
     if (result.isConfirmed) {
-      fetch(`http://localhost:3000/crop/delete/${id}`, {
+      fetch(`https://krishi-link-server-ten.vercel.app/crop/delete/${id}`, {
         method: "DELETE",
         headers: { "content-type": "application/json" },
       })

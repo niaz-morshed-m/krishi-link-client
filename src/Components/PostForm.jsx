@@ -77,7 +77,7 @@ const newCrop = {
   interests: [],
 };
 
-fetch("http://localhost:3000/crop", {
+fetch("https://krishi-link-server-ten.vercel.app/crop", {
   method: "POST",
   headers: { "content-type": "application/json" },
   body: JSON.stringify(newCrop),

@@ -14,7 +14,9 @@ const [status, setStatus] = useState(false)
 
  const [interestsData, seInterestsData] = useState([])
      useEffect(() => {
-            fetch(`http://localhost:3000/myInterests/${user?.email}`)
+            fetch(
+              `https://krishi-link-server-ten.vercel.app/myInterests/${user?.email}`
+            )
               .then((res) => res.json())
               .then((info) => {
                 seInterestsData(info);
@@ -94,7 +96,7 @@ const handleSubmitInterest = (e) => {
     status: "pending",
   };
 
-  fetch(`http://localhost:3000/crop/addInterest`, {
+  fetch(`https://krishi-link-server-ten.vercel.app/crop/addInterest`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(newInterest),

@@ -53,14 +53,14 @@ if (!validPassword) {
           email: email,
           image: photo,
         };
-         fetch("http://localhost:3000/users", {
+         fetch("https://krishi-link-server-ten.vercel.app/users", {
            method: "POST",
            headers: { "content-type": "application/json" },
            body: JSON.stringify(newUser),
          })
            .then((res) => res.json())
            .then((data) => {
-             navigate('/');
+             navigate("/");
            });
       })
       .catch((error) => {
@@ -79,8 +79,8 @@ if (!validPassword) {
           email: result.user.email,
           image: result.user.photoURL,
         };
-        
-        fetch("http://localhost:3000/users", {
+
+        fetch("https://krishi-link-server-ten.vercel.app/users", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(newUser),

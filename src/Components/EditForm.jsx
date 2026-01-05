@@ -78,7 +78,7 @@ const EditForm = ({ post }) => {
       image: updatedImage,
     };
 
-    fetch(`http://localhost:3000/crop/${_id}`, {
+    fetch(`https://krishi-link-server-ten.vercel.app/crop/${_id}`, {
       method: "PATCH",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(updatedCrop),
@@ -86,7 +86,6 @@ const EditForm = ({ post }) => {
       .then((res) => res.json())
       .then(() => {
         setOnePost(updatedCrop);
-
       });
   
   };

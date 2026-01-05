@@ -1,14 +1,58 @@
-import React, { use } from 'react';
+import React, { useState, useEffect } from 'react';
 import CropCard from '../CropCard';
 import { Link } from 'react-router';
 
-const latestCropPromise = fetch("http://localhost:3000/crop/latest").then(
-  (res) => res.json()
-);
-
 const LatestCrop = () => {
-  
-    const latestCrops = use(latestCropPromise)
+  const [latestCrops, setLatestCrops] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchLatestCrops = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          "https://krishi-link-server-ten.vercel.app/crop/latest"
+        );
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        setLatestCrops(data);
+      } catch (err) {
+        console.error('Error fetching latest crops:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLatestCrops();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="mt-25 text-center py-10">
+        <div className="text-xl text-green-800">Loading latest crops...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="mt-25 text-center py-10">
+        <div className="text-xl text-red-600">Error loading crops: {error}</div>
+        <button 
+          onClick={() => window.location.reload()} 
+          className="btn bg-[#07f255] mt-4"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
     return (
       <div className="mt-25">
         <h2 className="text-3xl text-center font-bold text-green-800 mb-2">

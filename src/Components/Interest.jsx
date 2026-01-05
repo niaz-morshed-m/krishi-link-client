@@ -16,7 +16,9 @@ const {user} = useContext(AuthContext)
       
     const [data, setData] = useState([]);
                useEffect(() => {
-              fetch(`http://localhost:3000/interests/${user?.email}`)
+              fetch(
+                `https://krishi-link-server-ten.vercel.app/interests/${user?.email}`
+              )
                 .then((res) => res.json())
                 .then((data) => setData(data))
                 .catch((err) => console.log("Error:", err)); 
@@ -38,7 +40,7 @@ const handleStatusUpdate = (id, status) => {
     confirmButtonText: status === "accepted" ? "Yes, Accept" : "Yes, Reject",
   }).then((result) => {
     if (result.isConfirmed) {
-      fetch(`http://localhost:3000/interest/status/${id}`, {
+      fetch(`https://krishi-link-server-ten.vercel.app/interest/status/${id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
